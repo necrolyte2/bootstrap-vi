@@ -6,6 +6,6 @@ python:
 install:
     - pip install python-coveralls nose mock unittest2
 script:
-    - nosetests --with-coverage --cover-erase --cover-package=redscheduler
+    - nosetests --with-coverage --cover-erase --cover-package=bootstrap_vi
 after_success:
     - coveralls
