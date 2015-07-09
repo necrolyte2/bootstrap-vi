@@ -3,7 +3,7 @@ from __future__ import print_function
 import subprocess
 import sys
 import re
-from os.path import join, basename
+from os.path import join, basename, abspath
 
 try:
     from urllib2 import urlopen
@@ -80,6 +80,15 @@ def create_virtualenv(venvpath, venvargs=None):
         virtualenv.py)
     :param list venvargs: Virtualenv arguments to pass to virtualenv.py
     '''
+    cmd = [join(venvpath, 'virtualenv.py')]
+    venv_path = None
+    if venvargs:
+        cmd += venvargs
+        venv_path = abspath(venvargs[-1])
+    else:
+        cmd += ['venv']
+    p = subprocess.Popen(cmd)
+    p.communicate()
 
 def bootstrap_vi(version=None, venvargs=None):
     '''
@@ -88,3 +97,14 @@ def bootstrap_vi(version=None, venvargs=None):
     :param str version: Virtualenv version like 13.1.0 or None for latest version
     :param list venvargs: argv list for virtualenv.py or None for default
     '''
+    if not version:
+        version = get_latest_virtualenv_version()
+    tarball = download_virtualenv(version)
+    p = subprocess.Popen('tar xzvf {0}'.format(tarball), shell=True)
+    p.wait()
+    p = 'virtualenv-{0}'.format(version)
+    create_virtualenv(p, venvargs)
+
+def main():
+    venv_args = get_venv_args(sys.argv)
+    bootstrap_vi(venvargs=venv_args)

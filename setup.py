@@ -18,6 +18,7 @@ setup(
     setup_requires = [
         'nose',
         'mock',
-        'unittest2'
+        'unittest2',
+        'tempdir'
     ]
 )

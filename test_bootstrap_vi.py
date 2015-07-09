@@ -1,8 +1,11 @@
 import os
-from os.path import join
+from os.path import join, exists
 
 import unittest2 as unittest
+import tempdir
+import mock
 
+# Normalize python2 and python3 errors
 try:
     from urllib2 import HTTPError, URLError
 except ImportError:
@@ -13,8 +16,6 @@ try:
     FileNotFoundError
 except NameError:
     FileNotFoundError = IOError
-
-import mock
 
 import bootstrap_vi
 
@@ -104,3 +105,52 @@ class TestDownloadVirtualenv(PatchUrlopen):
                 bootstrap_vi.PYPI_DL_URL.format(VER='13.1.0')
             )
             self.mock_urlopen.return_value.read.assert_called_once_with()
+
+class TestCreateVirtualenv(unittest.TestCase):
+    def setUp(self):
+        self.patch_subprocess = mock.patch.object(bootstrap_vi, 'subprocess')
+        self.mock_subprocess = self.patch_subprocess.start()
+        self.addCleanup(self.mock_subprocess.stop)
+
+    def test_runs_virtualenv_without_args_default_venv_dir(self):
+        r = bootstrap_vi.create_virtualenv('virtualenvpath')
+        self.mock_subprocess.Popen.assert_called_once_with(
+            ['virtualenvpath/virtualenv.py', 'venv']
+        )
+        self.mock_subprocess.Popen.return_value.communicate.assert_called_once_with()
+
+    def test_runs_virtualenv_with_args_path(self):
+        args = ['--prompt', '"(bar)"', 'foo']
+        r = bootstrap_vi.create_virtualenv('virtualenvpath', args)
+        self.mock_subprocess.Popen.assert_called_once_with(
+            ['virtualenvpath/virtualenv.py'] + args
+        )
+        self.mock_subprocess.Popen.return_value.communicate.assert_called_once_with()
+
+class TestBootstrapVi(unittest.TestCase):
+    def setUp(self):
+        self.tdir = tempdir.TempDir()
+        os.chdir(self.tdir.name)
+        self.patch_sys = mock.patch.object(bootstrap_vi, 'sys')
+        self.mock_sys = self.patch_sys.start()
+        self.addCleanup(self.patch_sys.stop)
+
+    def tearDown(self):
+        os.chdir('/')
+
+    def test_creates_latest_virtualenv_defaults_run_normal(self):
+        self.mock_sys.argv = ['bootstrap_vi.py']
+        bootstrap_vi.main()
+        self.assertTrue(exists('venv/bin/activate'), 'Did not create venv/bin/activate')
+
+    def test_creates_latest_virtualenv_defaults_run_from_pipe(self):
+        self.mock_sys.argv = []
+        bootstrap_vi.main()
+        self.assertTrue(exists('venv/bin/activate'), 'Did not create venv/bin/activate')
+
+    def test_creates_virtualenv_with_args_run_from_pipe(self):
+        self.mock_sys.argv = ['-', 'vpath', '--prompt', 'findpromptfind']
+        self.latest_ver = bootstrap_vi.get_latest_virtualenv_version()
+        bootstrap_vi.main()
+        with open('vpath/bin/activate') as fh:
+            self.assertIn('findpromptfind', fh.read())
