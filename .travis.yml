@@ -4,7 +4,7 @@ python:
   - "2.7"
   - "3.4"
 install:
-    - pip install python-coveralls nose mock unittest2
+    - pip install python-coveralls nose mock unittest2 tempdir
 script:
     - nosetests --with-coverage --cover-erase --cover-package=bootstrap_vi
 after_success:
