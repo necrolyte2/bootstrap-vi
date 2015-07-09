@@ -51,7 +51,7 @@ def get_venv_args(argv):
         return []
     if argv[0] == '-':
         return argv[1:]
-    elif argv[0] == 'bootstrap_vi.py':
+    elif 'bootstrap_vi' in argv[0]:
         return argv[1:]
     return argv
 

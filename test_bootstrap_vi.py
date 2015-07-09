@@ -37,6 +37,8 @@ class TestGetVenvArgs(unittest.TestCase):
         self.assertEqual([], r)
         r = bootstrap_vi.get_venv_args(['bootstrap_vi.py'])
         self.assertEqual([], r)
+        r = bootstrap_vi.get_venv_args(['bootstrap_vi'])
+        self.assertEqual([], r)
 
     def test_returns_args_after_scriptname(self):
         args = ['bootstrap_vi.py', 'venv']
@@ -49,7 +51,7 @@ class PatchUrlopen(unittest.TestCase):
         self.mock_urlopen = self.url_patch.start()
         self.addCleanup(self.url_patch.stop)
 
-class TestGetLastestVirtualenvVersion(PatchUrlopen):
+class TestGetLatestVirtualenvVersion(PatchUrlopen):
     def test_gets_correct_version(self):
         self.mock_urlopen.return_value.read.return_value = \
             '<html><h1>virtualenv 13.1.0</h1></html>'
