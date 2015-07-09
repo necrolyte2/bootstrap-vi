@@ -40,3 +40,36 @@ So say you want to change the virtualenv's directory and prompt
 
 This would then create the virtualenv in the envdir directory and set the prompt
 for the environment to ``(myenv)``
+
+Bootstrapping using setuptools
+==============================
+
+You can now bootstrap virtualenv in your project even easier through setuptools.
+
+You just have to include the following inside your ``setup.py``
+
+.. code-block:: python
+
+    setup_requires = [
+        'bootstrap_vi'
+    ]
+
+Now you can simply put in your installation docs the following to easily bootstrap
+virtualenv for your project
+
+.. code-block:: bash
+
+    python setup.py bootstrap_virtualenv
+
+This will do exactly the same thing as if you just ran
+
+.. code-block:: bash
+
+    python bootstrap_vi.py
+
+
+Similarily, you can pass any virtualenv arguments
+
+.. code-block:: bash
+
+    python setup.py bootstrap_virtualenv envdir --prompt="(myenv)"

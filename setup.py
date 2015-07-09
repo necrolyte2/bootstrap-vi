@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = 'bootstrap_vi',
-    version = '0.0.1',
+    version = '0.0.2',
     packages = find_packages(),
     install_requires = [],
     author = 'Tyghe Vallard',
@@ -12,7 +12,12 @@ setup(
     keywords = 'bootstrap, virtualenv',
     url = 'https://github.com/necrolyte2/bootstrap_vi',
     entry_points = {
+        'distutils.commands': [
+            #'bootstrap_virtualenv = bootstrap_vi:BootstrapVI'
+            'bootstrap_virtualenv = bootstrap_vi:BootstrapVI'
+        ],
         'console_scripts': [
+            'bootstrap_vi = bootstrap_vi:main'
         ]
     },
     setup_requires = [

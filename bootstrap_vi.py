@@ -18,6 +18,25 @@ except ImportError:
 PYPI_DL_URL = 'https://pypi.python.org/packages/source/v/virtualenv/virtualenv-{VER}.tar.gz'
 PYPI_VI_URL = 'https://pypi.python.org/pypi/virtualenv'
 
+try:
+    from setuptools import Command
+except ImportError:
+    Command = BootstrapVI = None
+else:
+    class BootstrapVI(Command):
+        description = 'Bootstrap virtualenv(All virtualenv arguments supported)'
+        user_options = []
+        command_consumes_arguments = True
+
+        def initialize_options(self):
+            self.args = []
+
+        def finalize_options(self):
+            pass
+
+        def run(self):
+            bootstrap_vi(venvargs=self.args)
+
 class VersionError(Exception):
     '''
     Generic error fetching version
@@ -32,7 +51,7 @@ def get_venv_args(argv):
         return []
     if argv[0] == '-':
         return argv[1:]
-    elif argv[0] == __name__+'.py':
+    elif argv[0] == 'bootstrap_vi.py':
         return argv[1:]
     return argv
 
