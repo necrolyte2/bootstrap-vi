@@ -1,3 +1,6 @@
+.. image:: https://badge.fury.io/py/bootstrap_vi.svg
+    :target: http://badge.fury.io/py/bootstrap_vi
+
 .. image:: https://travis-ci.org/necrolyte2/bootstrap_vi.svg
     :target: https://travis-ci.org/necrolyte2/bootstrap_vi
 
