@@ -1,3 +1,10 @@
+.. image:: https://travis-ci.org/necrolyte2/bootstrap_vi.svg
+    :target: https://travis-ci.org/necrolyte2/bootstrap_vi
+
+.. image:: https://coveralls.io/repos/necrolyte2/bootstrap_vi/badge.svg?branch=master&service=github
+  :target: https://coveralls.io/github/necrolyte2/bootstrap_vi?branch=master
+
+
 ============
 bootstrap_vi
 ============
