@@ -2,6 +2,12 @@
 Changelog
 =========
 
+0.0.3
+=====
+
+- Fixed another bug when entry_point command was used to call script
+- Fixed setup.py(hopefully) to be more correct with regards to py_module
+
 0.0.2
 =====
 
