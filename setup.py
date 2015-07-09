@@ -17,6 +17,7 @@ setup(
     },
     setup_requires = [
         'nose',
-        'mock'
+        'mock',
+        'unittest2'
     ]
 )
