@@ -108,3 +108,6 @@ def bootstrap_vi(version=None, venvargs=None):
 def main():
     venv_args = get_venv_args(sys.argv)
     bootstrap_vi(venvargs=venv_args)
+
+if __name__ == '__main__':
+    main()
