@@ -18,11 +18,14 @@ bootstrap_vi
 Bootstrap Virtualenv on system without pip or easy_install
 
 It isn't terribly hard to get virtualenv installed, but often times it would be
-much easier to be able to put in installation instructions a simple one line
-curl to get a virtualenv setup and running.
+much easier to be able to just use a single quick command to get a virtualenv up and
+running.
 
-Eventually it would be great to setup this project such that it could also be used
-as a setuptools setup.py extension.
+Also, putting the instructions on how to setup a virtualenv in installation 
+instructions is a bit redundant and not concise enough for novice python users.
+
+This project allows you to very easily use a single command to bootstrap a
+virtualenv to solve these issues.
 
 Bootstrapping a virtualenv
 ==========================
@@ -32,17 +35,17 @@ installation instructions
 
 .. code-block:: bash
 
-    wget https://raw.githubusercontent.com/necrolyte2/bootstrap_vi/master/bootstrap_vi.py -O- | python -
+    $> wget https://raw.githubusercontent.com/necrolyte2/bootstrap_vi/master/bootstrap_vi.py -O- | python -
 
 This would setup a virtualenv in the current directory under the venv directory.
 You can supply any of the virtualenv's arguments after the word python and they will
 be passed on to the virtualenv call.
 
-So say you want to change the virtualenv's directory and prompt
+If you want to change the virtualenv's directory and prompt for example:
 
 .. code-block:: bash
 
-    wget https://raw.githubusercontent.com/necrolyte2/bootstrap_vi/master/bootstrap_vi.py -O- | python - envdir --prompt="(myenv)"
+    $> wget https://raw.githubusercontent.com/necrolyte2/bootstrap_vi/master/bootstrap_vi.py -O- | python - envdir --prompt="(myenv)"
 
 This would then create the virtualenv in the envdir directory and set the prompt
 for the environment to ``(myenv)$PS1``
@@ -50,7 +53,7 @@ for the environment to ``(myenv)$PS1``
 Bootstrapping using setuptools
 ==============================
 
-You can now bootstrap virtualenv in your project even easier through setuptools.
+You can also bootstrap virtualenv in a python project by leveraging setup.py.
 
 You just have to include the following inside your ``setup.py``
 
@@ -61,24 +64,20 @@ You just have to include the following inside your ``setup.py``
     ]
 
 Now you can simply put in your installation docs the following to easily bootstrap
-virtualenv for your project
+virtualenv for your project.
+
+This would be very similar to the first wget call above.
 
 .. code-block:: bash
 
-    python setup.py bootstrap_virtualenv
-
-This will do exactly the same thing as if you just ran
-
-.. code-block:: bash
-
-    python bootstrap_vi.py
+    $> python setup.py bootstrap_virtualenv
 
 
-Similarily to the wget example above, you can pass any virtualenv arguments
+Similarity to the second wget example above, you can pass any virtualenv arguments
 
 .. code-block:: bash
 
-    python setup.py bootstrap_virtualenv envdir --prompt="(myenv)"
+    $> python setup.py bootstrap_virtualenv envdir --prompt="(myenv)"
 
 This would also create a virtualenv in the envdir directory and set the prompt to
 ``(myenv)$PS1``
