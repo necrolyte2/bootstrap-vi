@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = 'bootstrap_vi',
-    version = '0.0.3',
+    version = '0.0.4',
     py_modules=['bootstrap_vi'],
     install_requires = [],
     author = 'Tyghe Vallard',
