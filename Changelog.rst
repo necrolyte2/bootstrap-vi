@@ -2,6 +2,14 @@
 Changelog
 =========
 
+0.0.4
+=====
+
+- setup_requires only includes nose. Prior, it included all test requirements which
+  in turn meant any project placing bootstrap_vi into its setup_requires would mean
+  they would be downloaded as well
+- Misc Readme clarifications
+
 0.0.3
 =====
 
