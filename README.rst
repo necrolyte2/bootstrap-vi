@@ -45,7 +45,7 @@ So say you want to change the virtualenv's directory and prompt
     wget https://raw.githubusercontent.com/necrolyte2/bootstrap_vi/master/bootstrap_vi.py -O- | python - envdir --prompt="(myenv)"
 
 This would then create the virtualenv in the envdir directory and set the prompt
-for the environment to ``(myenv)``
+for the environment to ``(myenv)$PS1``
 
 Bootstrapping using setuptools
 ==============================
@@ -74,8 +74,11 @@ This will do exactly the same thing as if you just ran
     python bootstrap_vi.py
 
 
-Similarily, you can pass any virtualenv arguments
+Similarily to the wget example above, you can pass any virtualenv arguments
 
 .. code-block:: bash
 
     python setup.py bootstrap_virtualenv envdir --prompt="(myenv)"
+
+This would also create a virtualenv in the envdir directory and set the prompt to
+``(myenv)$PS1``
