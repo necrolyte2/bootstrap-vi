@@ -20,10 +20,12 @@ setup(
             'bootstrap_vi = bootstrap_vi:main'
         ]
     },
-    setup_requires = [
-        'nose',
+    tests_require = [
         'mock',
         'unittest2',
         'tempdir'
-    ]
+    ],
+    setup_requires = [
+        'nose'
+    ],
 )
